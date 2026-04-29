@@ -1,7 +1,10 @@
 package com.example.umc10thsb.domain.member.exception;
 
-public class MemberException extends RuntimeException {
-    public MemberException(String message) {
-        super(message);
+import com.example.umc10thsb.global.apiPayload.code.BaseErrorCode;
+import com.example.umc10thsb.global.apiPayload.exception.GeneralException;
+
+public class MemberException extends GeneralException {
+    public MemberException(BaseErrorCode errorCode) {
+        super(errorCode);
     }
 }
