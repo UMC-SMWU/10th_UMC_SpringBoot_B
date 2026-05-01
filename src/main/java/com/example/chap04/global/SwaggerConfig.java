@@ -1,4 +1,4 @@
-package com.example.chap04.global.config;
+package com.example.chap04.global;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
