@@ -1,6 +1,5 @@
 package com.example.chap04.domain.mission.dto;
 
-import com.example.chap04.domain.store.entity.StoreType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.util.List;
@@ -61,5 +60,25 @@ public class MissionResponseDTO {
     public static class MyMissionListResponseDto {
         @JsonProperty("my_missions")
         private List<MyMissionDto> missions;
+    }
+
+    // 미션 item들
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class missionItemDto {
+        private Long point;
+        private String storeName;
+        private String conditional;
+        private boolean idComplete;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class missionItemsListDto {
+        private List<missionItemDto> missions;
     }
 }

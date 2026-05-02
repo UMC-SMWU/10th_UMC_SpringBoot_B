@@ -47,13 +47,6 @@ public class Member {
     @Column(name = "detail_address", nullable = false)
     private String detailAddress;
 
-    @Column(name = "social_uid", nullable = false)
-    private String socialUid;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "social_type", nullable = false, columnDefinition = "varchar(20)")
-    private SocialType socialType;
-
     @Column(nullable = false)
     private Integer point;
 
@@ -76,13 +69,6 @@ public class Member {
         MALE,
         FEMALE,
         NONE
-    }
-
-    public enum SocialType {
-        KAKAO,
-        NAVER,
-        APPLE,
-        GOOGLE
     }
 
     public enum Address {

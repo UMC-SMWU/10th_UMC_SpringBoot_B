@@ -14,11 +14,10 @@ public class ReviewRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CreateReviewRequest {
-        private String content;
-        private BigDecimal star;
-        private Long storeId;
         private Long userId;
-        private Long replyId;
-        private List<String> photoUrls;
+        private Long storeId;
+        private int point;
+        private String content;
+        private List<String> reviewImages;
     }
 }
