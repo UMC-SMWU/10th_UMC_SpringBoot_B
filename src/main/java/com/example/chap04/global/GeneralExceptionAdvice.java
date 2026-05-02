@@ -12,7 +12,7 @@ public class GeneralExceptionAdvice {
     public ResponseEntity<ApiResponse<Void>> handleMemberException(
             ProjectException e
     ) {
-        BaseErrorCode errorCode = e.getErrorCode();
+        BaseCode errorCode = e.getErrorCode();
         return ResponseEntity // Entity에서
                 .status(errorCode.getStatus()) // status를 저장하고, (400, 500 ...)
                 .body(ApiResponse.onFailure(errorCode, null)); // body 저장
@@ -24,7 +24,7 @@ public class GeneralExceptionAdvice {
             Exception ex
     ) {
 
-        BaseErrorCode code = GeneralErrorCode.INTERNAL_SERVER_ERROR;
+        BaseCode code = GeneralErrorCode.INTERNAL_SERVER_ERROR;
         return ResponseEntity
                 .status(code.getStatus())
                 .body(ApiResponse.onFailure(

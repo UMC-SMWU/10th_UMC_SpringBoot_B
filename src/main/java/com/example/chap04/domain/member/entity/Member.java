@@ -1,15 +1,16 @@
-package com.example.chap04.domain.user.entity;
+package com.example.chap04.domain.member.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.chap04.domain.food.entity.MemberFood;
+import com.example.chap04.domain.mission.entity.MemberMission;
+import com.example.chap04.domain.review.entity.Review;
+import com.example.chap04.domain.term.entity.MemberTerm;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class User {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -91,4 +92,33 @@ public class User {
         MAPO_GU,
         YONGSAN_GU
     }
+
+    //// 관계 ////
+    @OneToMany(
+            mappedBy = "member",
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true
+    )
+    List<MemberMission> memberMissions = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "member",
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true
+    )
+    List<MemberFood> memberFoods = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "member",
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true
+    )
+    List<MemberTerm> memberTerms = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "member",
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true
+    )
+    List<Review> reviews = new ArrayList<>();
 }

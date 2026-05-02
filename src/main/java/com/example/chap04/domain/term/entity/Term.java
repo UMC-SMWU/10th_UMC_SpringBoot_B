@@ -1,4 +1,4 @@
-package com.example.chap04.domain.food.entity;
+package com.example.chap04.domain.term.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.CascadeType;
@@ -19,35 +19,34 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "food")
+@Table(name = "term")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Food {
+public class Term {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "food_id")
+    @Column(name = "term_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(30)")
-    private FoodCategory name;
+    private TermName name;
 
     @OneToMany(
-            mappedBy = "food",
+            mappedBy = "term",
             cascade = CascadeType.PERSIST,
             orphanRemoval = true
     )
-    private List<MemberFood> memberFoods = new ArrayList<>();
+    private List<MemberTerm> memberTerms = new ArrayList<>();
 
-    public enum FoodCategory {
-        NONE,
-        KOREAN,
-        JAPANESE,
-        CHINESE,
-        WESTERN,
-        DESSERT
+    public enum TermName {
+        AGE,
+        SERVICE,
+        PRIVACY,
+        LOCATION,
+        MARKETING
     }
 }

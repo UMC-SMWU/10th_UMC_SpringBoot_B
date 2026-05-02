@@ -1,14 +1,12 @@
 package com.example.chap04.domain.mission.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import com.example.chap04.domain.store.entity.StoreType;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,6 +45,14 @@ public class Mission {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "store_id", nullable = false)
-    private Long storeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", nullable = false)
+    private StoreType store;
+
+    @OneToMany(
+            mappedBy = "mission",
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true
+    )
+    private List<MemberMission> memberMissions = new ArrayList<>();
 }

@@ -1,14 +1,13 @@
 package com.example.chap04.domain.review.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import com.example.chap04.domain.member.entity.Member;
+import com.example.chap04.domain.store.entity.StoreType;
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,12 +37,22 @@ public class Review {
     @Column(nullable = false)
     private BigDecimal star;
 
-    @Column(name = "store_id", nullable = false)
-    private Long storeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", nullable = false)
+    private StoreType store;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Member member;
 
-    @Column(name = "reply_id", nullable = false)
-    private Long replyId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reply_id", nullable = false)
+    private Reply reply;
+
+    @OneToMany(
+            mappedBy = "review",
+            cascade = CascadeType.PERSIST,
+            orphanRemoval = true
+    )
+    private List<ReviewPhoto> reviewPhotos = new ArrayList<>();
 }
