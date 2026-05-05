@@ -105,4 +105,19 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Reply> replies = new ArrayList<>();
+
+    // === 도메인 메서드 ===
+
+    // 마이페이지 정보 수정 (null 인 필드는 기존 값 유지)
+    public void updateProfile(String name, String nickname, String profileUrl, String phoneNumber) {
+        if (name != null) this.name = name;
+        if (nickname != null) this.nickname = nickname;
+        if (profileUrl != null) this.profileUrl = profileUrl;
+        if (phoneNumber != null) this.phoneNumber = phoneNumber;
+    }
+
+    // 미션 완료 보상 포인트 적립
+    public void addPoint(int amount) {
+        this.point += amount;
+    }
 }

@@ -51,4 +51,16 @@ public class MemberMission extends BaseEntity {
 
     @Column(name = "completed_at")
     private LocalDateTime completedAt;
+
+    // === 도메인 메서드 ===
+
+    // 미션 완료 처리: 상태를 COMPLETED 로 바꾸고 완료 시각 기록
+    public void complete() {
+        this.status = MissionStatus.COMPLETED;
+        this.completedAt = LocalDateTime.now();
+    }
+
+    public boolean isChallenging() {
+        return this.status == MissionStatus.CHALLENGING;
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 public enum StoreErrorCode implements BaseErrorCode {
 
     STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_4041", "가게를 찾을 수 없습니다."),
+    LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_4042", "지역을 찾을 수 없습니다."),
     DUPLICATE_STORE(HttpStatus.CONFLICT, "STORE_4091", "이미 존재하는 가게입니다.");
 
     private final HttpStatus httpStatus;

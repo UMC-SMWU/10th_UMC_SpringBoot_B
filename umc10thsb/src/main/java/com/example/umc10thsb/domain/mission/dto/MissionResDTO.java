@@ -10,10 +10,12 @@ public class MissionResDTO {
     @Builder
     public record MissionItem(
             Long missionId,
+            String storeName,
             String title,
             String content,
             Integer reward,
-            String status
+            String status,
+            String deadline
     ) {}
 
     // 페이지네이션된 미션 목록
@@ -23,13 +25,16 @@ public class MissionResDTO {
             int page,
             int size,
             int totalPages,
-            long totalElements
+            long totalElements,
+            boolean hasNext
     ) {}
 
     // 미션 상세
     @Builder
     public record MissionDetail(
             Long missionId,
+            Long storeId,
+            String storeName,
             String title,
             String content,
             Integer reward,
@@ -50,6 +55,17 @@ public class MissionResDTO {
     @Builder
     public record CompleteMission(
             Long missionId,
-            String status
+            String status,
+            Integer rewardedPoint,
+            Integer totalPoint
+    ) {}
+
+    // 홈 화면 - 동네별 미션 진행률
+    @Builder
+    public record HomeMissions(
+            String address,
+            long completedCount,
+            long totalCount,
+            List<MissionItem> missions
     ) {}
 }

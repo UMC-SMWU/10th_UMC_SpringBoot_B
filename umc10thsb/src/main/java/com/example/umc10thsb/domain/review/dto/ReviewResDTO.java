@@ -34,6 +34,7 @@ public class ReviewResDTO {
             int page,
             int size,
             int totalPages,
-            long totalElements
+            long totalElements,
+            boolean hasNext
     ) {}
 }
