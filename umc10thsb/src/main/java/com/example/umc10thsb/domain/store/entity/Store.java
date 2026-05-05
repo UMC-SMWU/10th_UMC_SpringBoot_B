@@ -1,7 +1,8 @@
-package com.example.umc10thsb.domain.mission.entity;
+package com.example.umc10thsb.domain.store.entity;
 
-import com.example.umc10thsb.domain.mission.entity.mapping.MemberMission;
-import com.example.umc10thsb.domain.store.entity.Store;
+import com.example.umc10thsb.domain.mission.entity.Location;
+import com.example.umc10thsb.domain.mission.entity.Mission;
+import com.example.umc10thsb.domain.review.entity.Review;
 import com.example.umc10thsb.global.common.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,40 +21,42 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "mission")
+@Table(name = "store")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Mission extends BaseEntity {
+public class Store extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "mission_id")
+    @Column(name = "store_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", nullable = false)
-    private Store store;
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
 
     @Column(nullable = false, length = 100)
-    private String title;
+    private String name;
 
-    @Column(columnDefinition = "TEXT")
-    private String content;
+    @Column(length = 200)
+    private String address;
 
-    @Column(nullable = false)
-    private Integer reward;
-
-    @Column(nullable = false)
-    private LocalDate deadline;
-
-    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(precision = 2, scale = 1)
     @Builder.Default
-    private List<MemberMission> memberMissions = new ArrayList<>();
+    private BigDecimal score = BigDecimal.ZERO;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Mission> missions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Review> reviews = new ArrayList<>();
 }
