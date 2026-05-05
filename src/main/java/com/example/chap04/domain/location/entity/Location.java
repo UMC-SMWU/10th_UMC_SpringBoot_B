@@ -1,10 +1,9 @@
-package com.example.chap04.domain.food.entity;
+package com.example.chap04.domain.location.entity;
 
+import com.example.chap04.domain.store.entity.StoreType;
 import jakarta.persistence.Column;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,35 +18,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "food")
+@Table(name = "location")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Food {
+public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "food_id")
+    @Column(name = "location_id")
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(30)")
-    private FoodCategory name;
+    @Column(nullable = false)
+    private String name;
 
     @OneToMany(
-            mappedBy = "food",
+            mappedBy = "location",
             cascade = CascadeType.PERSIST,
             orphanRemoval = true
     )
-    private List<MemberFood> memberFoods = new ArrayList<>();
-
-    public enum FoodCategory {
-        NONE,
-        KOREAN,
-        JAPANESE,
-        CHINESE,
-        WESTERN,
-        DESSERT
-    }
+    private List<StoreType> stores = new ArrayList<>();
 }
