@@ -1,6 +1,6 @@
 package com.example.chap04.domain.location.entity;
 
-import com.example.chap04.domain.store.entity.StoreType;
+import com.example.chap04.domain.store.entity.Store;
 import jakarta.persistence.Column;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -38,5 +38,5 @@ public class Location {
             cascade = CascadeType.PERSIST,
             orphanRemoval = true
     )
-    private List<StoreType> stores = new ArrayList<>();
+    private List<Store> stores = new ArrayList<>();
 }

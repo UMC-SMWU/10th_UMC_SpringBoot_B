@@ -2,9 +2,8 @@ package com.example.chap04.domain.auth.controller;
 
 import com.example.chap04.domain.auth.dto.AuthRequestDTO;
 import com.example.chap04.domain.auth.service.AuthService;
-import com.example.chap04.domain.member.service.MemberService;
-import com.example.chap04.global.ApiResponse;
-import com.example.chap04.global.GeneralSuccessCode;
+import com.example.chap04.global.api.ApiResponse;
+import com.example.chap04.global.api.GeneralSuccessCode;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

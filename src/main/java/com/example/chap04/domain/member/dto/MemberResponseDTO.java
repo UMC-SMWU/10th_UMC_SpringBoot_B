@@ -24,4 +24,17 @@ public class MemberResponseDTO {
         private String email;
         private String phoneNumber;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyPageResponseDto {
+        private Long memberId;
+        private String nickname;
+        private String email;
+        private String phoneNumber;
+        private Boolean isPhoneVerified;
+        private Integer point;
+    }
 }

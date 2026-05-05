@@ -1,10 +1,10 @@
 package com.example.chap04.domain.mission.entity;
 
-import com.example.chap04.domain.store.entity.StoreType;
+import com.example.chap04.domain.store.entity.Store;
+import com.example.chap04.global.common.TimeBaseEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Mission {
+public class Mission extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,18 +36,9 @@ public class Mission {
     @Column(nullable = false)
     private Integer point;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
-
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    private StoreType store;
+    private Store store;
 
     @OneToMany(
             mappedBy = "mission",
@@ -55,4 +46,5 @@ public class Mission {
             orphanRemoval = true
     )
     private List<MemberMission> memberMissions = new ArrayList<>();
+
 }

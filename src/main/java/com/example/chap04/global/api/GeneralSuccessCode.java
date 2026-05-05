@@ -1,4 +1,4 @@
-package com.example.chap04.global;
+package com.example.chap04.global.api;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,8 @@
 package com.example.chap04.domain.review.entity;
 
 import com.example.chap04.domain.member.entity.Member;
-import com.example.chap04.domain.store.entity.StoreType;
+import com.example.chap04.domain.store.entity.Store;
+import com.example.chap04.global.common.TimeBaseEntity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Review {
+public class Review extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +40,7 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    private StoreType store;
+    private Store store;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
