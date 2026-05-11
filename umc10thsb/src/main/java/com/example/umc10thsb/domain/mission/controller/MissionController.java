@@ -1,15 +1,19 @@
 package com.example.umc10thsb.domain.mission.controller;
 
+import com.example.umc10thsb.domain.mission.dto.MissionReqDTO;
 import com.example.umc10thsb.domain.mission.dto.MissionResDTO;
 import com.example.umc10thsb.domain.mission.exception.code.MissionSuccessCode;
 import com.example.umc10thsb.domain.mission.service.MissionService;
 import com.example.umc10thsb.global.apiPayload.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +38,17 @@ public class MissionController {
     ) {
         MissionResDTO.MissionList response = missionService.getMyMissions(memberId, status, page, size);
         return ApiResponse.onSuccess(MissionSuccessCode.MISSION_LIST_SUCCESS, response);
+    }
+
+    // 내가 진행중인 미션 목록 조회
+    @Operation(summary = "내가 진행중인 미션 목록 조회",
+            description = "Request Body 로 전달된 memberId 기준으로 CHALLENGING 상태인 미션 목록을 오프셋 기반 페이지네이션으로 조회한다.")
+    @PostMapping("/me/challenging")
+    public ApiResponse<MissionResDTO.ChallengingMissionList> getMyChallengingMissions(
+            @Valid @RequestBody MissionReqDTO.GetChallengingMissions request
+    ) {
+        MissionResDTO.ChallengingMissionList response = missionService.getMyChallengingMissions(request);
+        return ApiResponse.onSuccess(MissionSuccessCode.MISSION_CHALLENGING_LIST_SUCCESS, response);
     }
 
     // 홈 화면 - 동네별 미션 진행률

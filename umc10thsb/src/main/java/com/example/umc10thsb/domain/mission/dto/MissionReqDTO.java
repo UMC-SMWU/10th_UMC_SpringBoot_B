@@ -13,4 +13,16 @@ public class MissionReqDTO {
             @NotNull @Min(0) Integer reward,
             @NotBlank String deadline
     ) {}
+
+    // 내가 진행중인 미션 목록 조회
+    public record GetChallengingMissions(
+            @NotNull(message = "memberId는 필수입니다.") @Min(1) Long memberId,
+            Integer page,
+            Integer size
+    ) {
+        public GetChallengingMissions {
+            if (page == null || page < 1) page = 1;
+            if (size == null || size < 1) size = 10;
+        }
+    }
 }
