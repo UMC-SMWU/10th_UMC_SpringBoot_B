@@ -1,6 +1,6 @@
 package com.example.chap04.domain.mission.controller;
 
-import com.example.chap04.domain.mission.dto.MissionResponseDTO;
+import com.example.chap04.domain.mission.dto.MemberMissionResponseDTO;
 import com.example.chap04.domain.mission.service.MissionService;
 import com.example.chap04.global.api.ApiResponse;
 import com.example.chap04.global.api.GeneralSuccessCode;
@@ -17,28 +17,29 @@ public class MissionController {
     private final MissionService missionService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<PageResponse<MissionResponseDTO.MyMissionResponseDto>>> getMyMission(
+    public ResponseEntity<ApiResponse<PageResponse<MemberMissionResponseDTO.MyMissionResponseDto>>> getMyMission(
             @RequestParam String type,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        PageResponse<MissionResponseDTO.MyMissionResponseDto> result =
+        PageResponse<MemberMissionResponseDTO.MyMissionResponseDto> result =
                 missionService.getMyMission(type, page, size);
 
         return ApiResponse.onSuccessResponse(GeneralSuccessCode.GET_SUCCESS, result);
     }
 
     @GetMapping("/available")
-    public ResponseEntity<ApiResponse<PageResponse<MissionResponseDTO.AvailableMissionResponseDto>>> getAvailableMissions(
+    public ResponseEntity<ApiResponse<PageResponse<MemberMissionResponseDTO.AvailableMissionResponseDto>>> getAvailableMissions(
             @RequestParam Long locationId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        PageResponse<MissionResponseDTO.AvailableMissionResponseDto> result =
+        PageResponse<MemberMissionResponseDTO.AvailableMissionResponseDto> result =
                 missionService.getAvailableMissions(locationId, page, size);
 
         return ApiResponse.onSuccessResponse(GeneralSuccessCode.GET_SUCCESS, result);
     }
+
 
 //    @GetMapping("/achievedCount/{memberId}")
 //    public ResponseEntity<ApiResponse<MissionResponseDTO.AchievedCountResponse>> getAchievedCount(

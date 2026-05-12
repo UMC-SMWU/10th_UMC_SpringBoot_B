@@ -1,5 +1,7 @@
 package com.example.chap04.domain.review.service;
 
+import com.example.chap04.domain.review.Converter.ReviewConverter;
+import com.example.chap04.domain.review.dto.ReviewRequestDTO;
 import com.example.chap04.domain.review.dto.ReviewResponseDTO;
 import com.example.chap04.domain.review.entity.Reply;
 import com.example.chap04.domain.review.entity.Review;
@@ -8,7 +10,9 @@ import com.example.chap04.domain.review.repository.ReviewRepository;
 import com.example.chap04.global.common.paging.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,5 +78,58 @@ public class ReviewService {
                 .content(reply.getContent())
                 .createdAt(reply.getCreatedAt())
                 .build();
+    }
+
+    // ID순 조회
+    public ReviewResponseDTO.MyReviewCursorResponse getMyReviewsById(
+            ReviewRequestDTO.MyReviewCursorRequest request
+    ) {
+        int size = request.getSize() == null ? 10 : request.getSize();
+
+        Pageable pageable = PageRequest.of(0, size);
+
+        Slice<Review> reviewSlice;
+
+        if (request.getCursorReviewId() == null) {
+            reviewSlice = reviewRepository.findByMember_IdOrderByIdDesc(
+                    request.getMemberId(),
+                    pageable
+            );
+        } else {
+            reviewSlice = reviewRepository.findByMember_IdAndIdLessThanOrderByIdDesc(
+                    request.getMemberId(),
+                    request.getCursorReviewId(),
+                    pageable
+            );
+        }
+
+        return ReviewConverter.toMyReviewCursorResponse(reviewSlice);
+    }
+
+    // 별점순 조회
+    public ReviewResponseDTO.MyReviewCursorResponse getMyReviewsByStar(
+            ReviewRequestDTO.MyReviewCursorRequest request
+    ) {
+        int size = request.getSize() == null ? 10 : request.getSize();
+
+        Pageable pageable = PageRequest.of(0, size);
+
+        Slice<Review> reviewSlice;
+
+        if (request.getCursorStar() == null || request.getCursorReviewId() == null) {
+            reviewSlice = reviewRepository.findByMember_IdOrderByStarDescIdDesc(
+                    request.getMemberId(),
+                    pageable
+            );
+        } else {
+            reviewSlice = reviewRepository.findMyReviewsByStarCursor(
+                    request.getMemberId(),
+                    request.getCursorStar(),
+                    request.getCursorReviewId(),
+                    pageable
+            );
+        }
+
+        return ReviewConverter.toMyReviewCursorResponse(reviewSlice);
     }
 }

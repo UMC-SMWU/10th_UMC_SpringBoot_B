@@ -7,9 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class MissionResponseDTO {
+public class MemberMissionResponseDTO {
 
     @Getter
     @Builder
@@ -35,4 +34,5 @@ public class MissionResponseDTO {
         private LocalDate deadline;
         private String dDay;
     }
+
 }
