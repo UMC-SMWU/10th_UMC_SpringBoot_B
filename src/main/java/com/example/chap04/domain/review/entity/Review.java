@@ -36,7 +36,7 @@ public class Review extends TimeBaseEntity {
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    private BigDecimal star;
+    private Double star;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)

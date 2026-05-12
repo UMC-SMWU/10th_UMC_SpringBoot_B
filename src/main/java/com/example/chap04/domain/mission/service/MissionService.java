@@ -1,6 +1,8 @@
 package com.example.chap04.domain.mission.service;
 
-import com.example.chap04.domain.mission.dto.MissionResponseDTO;
+import com.example.chap04.domain.mission.converter.MemberMissionConverter;
+import com.example.chap04.domain.mission.dto.MemberMissionRequestDTO;
+import com.example.chap04.domain.mission.dto.MemberMissionResponseDTO;
 import com.example.chap04.domain.mission.entity.MemberMission;
 import com.example.chap04.domain.mission.entity.MemberMissionStatus;
 import com.example.chap04.domain.mission.entity.Mission;
@@ -25,7 +27,7 @@ public class MissionService {
     private final MemberMissionRepository memberMissionRepository;
     private final MissionRepository missionRepository;
 
-    public PageResponse<MissionResponseDTO.MyMissionResponseDto> getMyMission(
+    public PageResponse<MemberMissionResponseDTO.MyMissionResponseDto> getMyMission(
             String type,
             int page,
             int size
@@ -41,9 +43,9 @@ public class MissionService {
         Page<MemberMission> memberMissionPage =
                 memberMissionRepository.findMyMissions(status, pageable);
 
-        List<MissionResponseDTO.MyMissionResponseDto> missions =
+        List<MemberMissionResponseDTO.MyMissionResponseDto> missions =
                 memberMissionPage.getContent().stream()
-                        .map(memberMission -> MissionResponseDTO.MyMissionResponseDto.builder()
+                        .map(memberMission -> MemberMissionResponseDTO.MyMissionResponseDto.builder()
                                 .point(memberMission.getMission().getPoint())
                                 .storeName(memberMission.getMission().getStore().getName())
                                 .conditional(memberMission.getMission().getConditional())
@@ -54,20 +56,20 @@ public class MissionService {
         return PageResponse.of(missions, memberMissionPage);
     }
 
-    public PageResponse<MissionResponseDTO.AvailableMissionResponseDto> getAvailableMissions(
+    public PageResponse<MemberMissionResponseDTO.AvailableMissionResponseDto> getAvailableMissions(
             Long locationId,
             int page,
             int size
     ) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size); // Page에서 틀을 받아옴
         LocalDate today = LocalDate.now();
 
         Page<Mission> missionPage =
                 missionRepository.findAvailableMissionsByLocation(locationId, today, pageable);
 
-        List<MissionResponseDTO.AvailableMissionResponseDto> missions =
+        List<MemberMissionResponseDTO.AvailableMissionResponseDto> missions =
                 missionPage.getContent().stream()
-                        .map(mission -> MissionResponseDTO.AvailableMissionResponseDto.builder()
+                        .map(mission -> MemberMissionResponseDTO.AvailableMissionResponseDto.builder()
                                 .missionId(mission.getId())
                                 .storeName(mission.getStore().getName())
                                 .category(mission.getStore().getCategory())
@@ -90,6 +92,8 @@ public class MissionService {
 
         return "D-" + days;
     }
+
+
 
     //    public MissionResponseDTO.AchievedCountResponse getAchievedCount(Long memberId) {
 //    }

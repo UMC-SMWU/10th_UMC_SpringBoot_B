@@ -1,5 +1,6 @@
 package com.example.chap04.domain.review.controller;
 
+import com.example.chap04.domain.review.dto.ReviewRequestDTO;
 import com.example.chap04.domain.review.dto.ReviewResponseDTO;
 import com.example.chap04.domain.review.service.ReviewService;
 import com.example.chap04.global.api.ApiResponse;
@@ -7,6 +8,7 @@ import com.example.chap04.global.api.GeneralSuccessCode;
 import com.example.chap04.global.common.paging.PageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -49,5 +51,37 @@ public class ReviewController {
                 reviewService.getReviewListByStoreId(storeId, pageable);
 
         return ApiResponse.onSuccessResponse(GeneralSuccessCode.GET_SUCCESS, result);
+    }
+
+    /**
+     * 내가 작성한 리뷰 조회 - ID순
+     */
+    @PostMapping("/my/id")
+    public ResponseEntity<ApiResponse<ReviewResponseDTO.MyReviewCursorResponse>> getMyReviewsById(
+            @RequestBody @Valid ReviewRequestDTO.MyReviewCursorRequest request
+    ) {
+        ReviewResponseDTO.MyReviewCursorResponse result =
+                reviewService.getMyReviewsById(request);
+
+        return ApiResponse.onSuccessResponse(
+                GeneralSuccessCode.GET_SUCCESS,
+                result
+        );
+    }
+
+    /**
+     * 내가 작성한 리뷰 조회 - 별점순
+     */
+    @PostMapping("/my/star")
+    public ResponseEntity<ApiResponse<ReviewResponseDTO.MyReviewCursorResponse>> getMyReviewsByStar(
+            @RequestBody @Valid ReviewRequestDTO.MyReviewCursorRequest request
+    ) {
+        ReviewResponseDTO.MyReviewCursorResponse result =
+                reviewService.getMyReviewsByStar(request);
+
+        return ApiResponse.onSuccessResponse(
+                GeneralSuccessCode.GET_SUCCESS,
+                result
+        );
     }
 }

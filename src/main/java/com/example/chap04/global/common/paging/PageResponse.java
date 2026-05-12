@@ -20,7 +20,7 @@ public class PageResponse<T> {
     public static <T> PageResponse<T> of(List<T> items, Page<?> page) {
         return PageResponse.<T>builder()
                 .items(items)
-                .pageInfo(PageInfo.from(page))
+                .pageInfo(PageInfo.fromOffset(page))
                 .build();
     }
 }

@@ -17,7 +17,7 @@ public class PageInfo {
     private long totalElements;
     private int totalPages;
 
-    public static PageInfo from(Page<?> page) {
+    public static PageInfo fromOffset(Page<?> page) {
         return PageInfo.builder()
                 .page(page.getNumber())
                 .size(page.getSize())

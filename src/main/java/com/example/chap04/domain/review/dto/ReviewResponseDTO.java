@@ -1,6 +1,7 @@
 package com.example.chap04.domain.review.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ public class ReviewResponseDTO {
         private Long reviewId;
         private Long memberId;
         private String nickname;
-        private BigDecimal star;
+        private Double star;
         private String content;
         private LocalDateTime createdAt;
         private List<ReviewPhotoInfo> photos;
@@ -50,5 +51,37 @@ public class ReviewResponseDTO {
     @AllArgsConstructor
     public static class ReviewInfoList {
         private List<ReviewInfo> reviews;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class MyReviewCursorResponse {
+
+        private List<MyReviewDTO> contents;
+
+        private Boolean hasNext;
+
+        private Long nextCursorReviewId;
+
+        private Double nextCursorStar;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class MyReviewDTO {
+
+        private Long reviewId;
+
+        private String storeName;
+
+        private Double star;
+
+        private String content;
+
+        private LocalDate createdAt;
     }
 }
