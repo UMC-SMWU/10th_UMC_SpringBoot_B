@@ -1,44 +1,24 @@
 package com.example.chap04.domain.mission.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDate;
-import java.util.List;
+import com.example.chap04.domain.mission.entity.StoreCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class MissionResponseDTO {
 
-    // 성공한 my mission 개수
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AchievedCountResponse {
-        @JsonProperty("achieved_count")
-        private Long achievedCount;
-    }
-
-    // 성공한 my mission 세부 정보
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class PlaceInfoDto {
-        private String name;
-        private RestaurantType type;
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class MissionInfoDto {
-        private String conditional;
+    public static class MyMissionResponseDto {
         private Integer point;
-        private LocalDate deadline;
-        @JsonProperty("is_complete")
+        private String storeName;
+        private String conditional;
         private Boolean isComplete;
     }
 
@@ -46,39 +26,13 @@ public class MissionResponseDTO {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MyMissionDto {
-        @JsonProperty("place_info")
-        private PlaceInfoDto place;
-        @JsonProperty("mission_info")
-        private MissionInfoDto mission;
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class MyMissionListResponseDto {
-        @JsonProperty("my_missions")
-        private List<MyMissionDto> missions;
-    }
-
-    // 미션 item들
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class missionItemDto {
-        private Long point;
+    public static class AvailableMissionResponseDto {
+        private Long missionId;
         private String storeName;
+        private StoreCategory category;
         private String conditional;
-        private boolean idComplete;
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class missionItemsListDto {
-        private List<missionItemDto> missions;
+        private Integer point;
+        private LocalDate deadline;
+        private String dDay;
     }
 }

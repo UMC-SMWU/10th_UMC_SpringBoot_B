@@ -31,4 +31,12 @@ public class MemberMission {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id", nullable = false)
     private Mission mission;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private MemberMissionStatus status;
+
+    public void complete() {
+        this.status = MemberMissionStatus.COMPLETED;
+    }
 }

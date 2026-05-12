@@ -4,10 +4,10 @@ import com.example.chap04.domain.food.entity.MemberFood;
 import com.example.chap04.domain.mission.entity.MemberMission;
 import com.example.chap04.domain.review.entity.Review;
 import com.example.chap04.domain.term.entity.MemberTerm;
+import com.example.chap04.global.common.TimeBaseEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Member {
+public class Member extends TimeBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +32,9 @@ public class Member {
 
     @Column(nullable = false, length = 5)
     private String name;
+
+    @Column(nullable = false, length = 100)
+    private String nickname;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(20)")
@@ -55,15 +58,6 @@ public class Member {
 
     @Column(name = "phone_number", length = 11)
     private String phoneNumber;
-
-    @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
-
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
 
     public enum Gender {
         MALE,

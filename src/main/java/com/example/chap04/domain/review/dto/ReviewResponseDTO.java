@@ -23,14 +23,32 @@ public class ReviewResponseDTO {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class ReviewReplyInfo {
+        private Long replyId;
+        private String content;
+        private LocalDateTime createdAt;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class ReviewInfo {
         private Long reviewId;
-        private String content;
+        private Long memberId;
+        private String nickname;
         private BigDecimal star;
+        private String content;
         private LocalDateTime createdAt;
-        private Long userId;
-        private Long storeId;
-        private Long replyId;
         private List<ReviewPhotoInfo> photos;
+        private ReviewReplyInfo reply;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ReviewInfoList {
+        private List<ReviewInfo> reviews;
     }
 }

@@ -2,6 +2,7 @@ package com.example.chap04.domain.store.entity;
 
 import com.example.chap04.domain.location.entity.Location;
 import com.example.chap04.domain.mission.entity.Mission;
+import com.example.chap04.domain.mission.entity.StoreCategory;
 import com.example.chap04.domain.review.entity.Review;
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class StoreType {
+public class Store {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +38,10 @@ public class StoreType {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    private StoreCategory category;
 
     @OneToMany(
             mappedBy = "store",

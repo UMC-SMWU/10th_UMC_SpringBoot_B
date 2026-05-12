@@ -1,4 +1,4 @@
-package com.example.chap04.global;
+package com.example.chap04.global.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
