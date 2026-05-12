@@ -37,4 +37,27 @@ public class ReviewResDTO {
             long totalElements,
             boolean hasNext
     ) {}
+
+    // 내가 작성한 리뷰 목록 element
+    @Builder
+    public record MyReviewItem(
+            Long reviewId,
+            Long storeId,
+            String storeName,
+            Integer star,
+            String title,
+            String content,
+            String createdAt
+    ) {}
+
+    // 내가 작성한 리뷰 목록
+    @Builder
+    public record MyReviewCursorList(
+            List<MyReviewItem> reviews,
+            String sortBy,
+            int size,
+            Long nextCursorId,
+            Integer nextCursorStar,
+            boolean hasNext
+    ) {}
 }
