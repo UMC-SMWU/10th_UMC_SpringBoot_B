@@ -1,7 +1,5 @@
 package com.example._th.domain.member.entity.mapping;
 
-package com.example._th.domain.member.entity.mapping;
-
 import com.example._th.global.common.BaseEntity;
 import com.example._th.domain.member.entity.Member;
 import com.example._th.domain.member.entity.Term;

@@ -1,7 +1,12 @@
 package com.example._th.domain.mission.entity;
+import com.example._th.domain.review.entity.Review;
 import com.example._th.global.common.BaseEntity; // BaseEntity가 위치한 경로
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -25,4 +30,7 @@ public class Store extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;
+
+    @OneToMany(mappedBy = "store")
+    private List<Review> reviewList = new ArrayList<>();
 }

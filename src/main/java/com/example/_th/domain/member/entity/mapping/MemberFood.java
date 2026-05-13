@@ -1,4 +1,6 @@
 package com.example._th.domain.member.entity.mapping;
+import com.example._th.domain.member.entity.Food;
+import com.example._th.domain.member.entity.Member;
 import com.example._th.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;

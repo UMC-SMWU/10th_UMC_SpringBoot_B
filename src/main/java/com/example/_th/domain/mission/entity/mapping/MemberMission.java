@@ -1,4 +1,6 @@
 package com.example._th.domain.mission.entity.mapping;
+import com.example._th.domain.member.entity.Member;
+import com.example._th.domain.mission.entity.Mission;
 import com.example._th.global.common.BaseEntity; // BaseEntity가 위치한 경로
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,18 +1,23 @@
 package com.example._th.domain.member.entity;
-import com.example._th.global.common.BaseEntity;
+
+import com.example._th.domain.member.enums.FoodName;
 import jakarta.persistence.*;
 import lombok.*;
-@Entity
-@Getter
-@Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Table(name = "food")
-public class Food extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+@Entity // 1
+@Getter // 2
+@Builder // 3
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // 4
+@AllArgsConstructor // 5
+@Table(name = "food") // 6
+public class Food {
+
+    @Id // 7
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 8
     private Long id;
 
-    @Column(nullable = false, length = 20)
-    private String name;
+    @Column(name = "name", nullable = false) // 9
+    @Enumerated(EnumType.STRING) // 10
+    private FoodName name;
 }

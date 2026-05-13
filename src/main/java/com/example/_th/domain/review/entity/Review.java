@@ -1,4 +1,6 @@
 package com.example._th.domain.review.entity;
+import com.example._th.domain.member.entity.Member;
+import com.example._th.domain.mission.entity.Store;
 import com.example._th.global.common.BaseEntity; // BaseEntity 위치에 맞게 수정 필요
 import jakarta.persistence.*;
 import lombok.*;

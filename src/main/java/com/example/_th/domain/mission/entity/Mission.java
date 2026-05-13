@@ -2,6 +2,9 @@ package com.example._th.domain.mission.entity;
 import com.example._th.global.common.BaseEntity; // BaseEntity가 위치한 경로
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Builder
