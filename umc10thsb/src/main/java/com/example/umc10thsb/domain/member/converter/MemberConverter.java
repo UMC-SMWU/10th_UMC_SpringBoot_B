@@ -18,6 +18,7 @@ public class MemberConverter {
 
     // 회원가입 요청 DTO + 사전 검증된 음식/약관 → Member 엔티티
     public static Member toMember(MemberReqDTO.SignUp req,
+                                  String encodedPassword,
                                   List<Food> foods,
                                   List<Term> terms,
                                   List<Long> agreedTermIds) {
@@ -28,7 +29,7 @@ public class MemberConverter {
         Member member = Member.builder()
                 .name(req.name())
                 .email(req.email())
-                .password(req.password())
+                .password(encodedPassword)
                 .phoneNumber(req.phoneNumber())
                 .gender(gender)
                 .socialType(SocialType.LOCAL)
