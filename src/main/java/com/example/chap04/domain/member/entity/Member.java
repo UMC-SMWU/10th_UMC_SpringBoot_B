@@ -6,16 +6,11 @@ import com.example.chap04.domain.review.entity.Review;
 import com.example.chap04.domain.term.entity.MemberTerm;
 import com.example.chap04.global.common.TimeBaseEntity;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "member")
@@ -30,11 +25,14 @@ public class Member extends TimeBaseEntity {
     @Column(name = "member_id")
     private Long id;
 
-    @Column(nullable = false, length = 5)
+    @Column(nullable = false, length = 500)
     private String name;
 
     @Column(nullable = false, length = 100)
     private String nickname;
+
+    @Column(nullable = false, length = 100)
+    private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(20)")
@@ -53,10 +51,10 @@ public class Member extends TimeBaseEntity {
     @Column(nullable = false)
     private Integer point;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String email;
 
-    @Column(name = "phone_number", length = 11)
+    @Column(name = "phone_number", length = 30)
     private String phoneNumber;
 
     public enum Gender {
