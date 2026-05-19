@@ -8,6 +8,9 @@ import com.example.umc10thsb.domain.review.converter.ReviewConverter;
 import com.example.umc10thsb.domain.review.dto.ReviewReqDTO;
 import com.example.umc10thsb.domain.review.dto.ReviewResDTO;
 import com.example.umc10thsb.domain.review.entity.Review;
+import com.example.umc10thsb.domain.review.enums.ReviewSortBy;
+import com.example.umc10thsb.domain.review.exception.ReviewException;
+import com.example.umc10thsb.domain.review.exception.code.ReviewErrorCode;
 import com.example.umc10thsb.domain.review.repository.ReviewRepository;
 import com.example.umc10thsb.domain.store.entity.Store;
 import com.example.umc10thsb.domain.store.exception.StoreException;
@@ -19,6 +22,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +58,47 @@ public class ReviewService {
         Page<Review> result = reviewRepository.findPageByStoreId(storeId, pageable);
 
         return ReviewConverter.toReviewList(result);
+    }
+
+     // 내가 작성한 리뷰 목록 - 커서 기반 페이지네이션
+    public ReviewResDTO.MyReviewCursorList getMyReviews(
+            Long memberId,
+            ReviewSortBy sortBy,
+            Long cursorId,
+            Integer cursorStar,
+            int size
+    ) {
+        // 회원 존재 검증
+        if (!memberRepository.existsById(memberId)) {
+            throw new MemberException(MemberErrorCode.MEMBER_NOT_FOUND);
+        }
+
+        int pageSize = Math.max(size, 1);
+
+        Pageable pageable = PageRequest.of(0, pageSize + 1);
+
+        List<Review> fetched;
+        if (sortBy == ReviewSortBy.STAR) {
+            boolean hasStarCursor = cursorStar != null;
+            boolean hasIdCursor = cursorId != null;
+            if (hasStarCursor ^ hasIdCursor) {
+                throw new ReviewException(ReviewErrorCode.INVALID_CURSOR);
+            }
+
+            if (!hasStarCursor) {
+                fetched = reviewRepository.findMyReviewsByStarFirstPage(memberId, pageable);
+            } else {
+                fetched = reviewRepository.findMyReviewsByStarAfterCursor(
+                        memberId, cursorStar, cursorId, pageable);
+            }
+        } else {
+            if (cursorId == null) {
+                fetched = reviewRepository.findMyReviewsByIdFirstPage(memberId, pageable);
+            } else {
+                fetched = reviewRepository.findMyReviewsByIdAfterCursor(memberId, cursorId, pageable);
+            }
+        }
+
+        return ReviewConverter.toMyReviewCursorList(fetched, sortBy, pageSize);
     }
 }

@@ -68,4 +68,17 @@ public class MissionResDTO {
             long totalCount,
             List<MissionItem> missions
     ) {}
+
+    // 내가 진행중인 미션 목록
+    @Builder
+    public record ChallengingMissionList(
+            List<MissionItem> missions,
+            int page,
+            int size,
+            long offset,
+            int totalPages,
+            long totalElements,
+            boolean hasNext,
+            boolean hasPrevious
+    ) {}
 }

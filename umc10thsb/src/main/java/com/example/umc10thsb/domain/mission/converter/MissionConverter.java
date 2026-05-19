@@ -115,4 +115,22 @@ public class MissionConverter {
                 .missions(items)
                 .build();
     }
+
+    // 진행중인 미션 목록
+    public static MissionResDTO.ChallengingMissionList toChallengingMissionList(Page<MemberMission> page) {
+        List<MissionResDTO.MissionItem> items = page.getContent().stream()
+                .map(MissionConverter::toMissionItem)
+                .toList();
+
+        return MissionResDTO.ChallengingMissionList.builder()
+                .missions(items)
+                .page(page.getNumber() + 1)
+                .size(page.getSize())
+                .offset(page.getPageable().getOffset())
+                .totalPages(page.getTotalPages())
+                .totalElements(page.getTotalElements())
+                .hasNext(page.hasNext())
+                .hasPrevious(page.hasPrevious())
+                .build();
+    }
 }

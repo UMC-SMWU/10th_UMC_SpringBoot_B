@@ -5,6 +5,7 @@ import com.example.umc10thsb.domain.member.exception.MemberException;
 import com.example.umc10thsb.domain.member.exception.code.MemberErrorCode;
 import com.example.umc10thsb.domain.member.repository.MemberRepository;
 import com.example.umc10thsb.domain.mission.converter.MissionConverter;
+import com.example.umc10thsb.domain.mission.dto.MissionReqDTO;
 import com.example.umc10thsb.domain.mission.dto.MissionResDTO;
 import com.example.umc10thsb.domain.mission.entity.Mission;
 import com.example.umc10thsb.domain.mission.entity.mapping.MemberMission;
@@ -31,6 +32,22 @@ public class MissionService {
     private final MissionRepository missionRepository;
     private final MemberMissionRepository memberMissionRepository;
     private final MemberRepository memberRepository;
+
+    // 내가 진행중인 미션 목록
+    public MissionResDTO.ChallengingMissionList getMyChallengingMissions(MissionReqDTO.GetChallengingMissions req) {
+        // 회원 존재 검증
+        if (!memberRepository.existsById(req.memberId())) {
+            throw new MemberException(MemberErrorCode.MEMBER_NOT_FOUND);
+        }
+
+        // 오프셋 기반 페이지네이션
+        Pageable pageable = PageRequest.of(req.page() - 1, req.size());
+
+        Page<MemberMission> result = memberMissionRepository
+                .findPageByMemberAndStatus(req.memberId(), MissionStatus.CHALLENGING, pageable);
+
+        return MissionConverter.toChallengingMissionList(result);
+    }
 
     // 내 미션 목록 - 진행중/완료 토글, 페이지네이션
     public MissionResDTO.MissionList getMyMissions(Long memberId, String statusParam, int page, int size) {
