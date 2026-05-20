@@ -1,26 +1,14 @@
 package com.example._th.domain.member.dto;
 
+import com.example._th.domain.member.enums.Gender;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.List;
+
 
 public class MemberReqDTO {
-
-    public record JoinDTO(
-            String name,
-            String gender,
-            String birth,
-            String address,
-            String email
-    ) {}
-}
-
-
-
-import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
-
-public class MemberRequestDto {
 
     // 💡 [2단계] 회원가입 전체 데이터를 담는 큰 가방
     @Getter
@@ -28,8 +16,8 @@ public class MemberRequestDto {
     public static class JoinDto {
         private TermsAgreeDto agree;       // 약관 동의 정보 뭉치 (아래 클래스)
         private String name;               // 이름 ("test")
-        private String gender;             // 성별 ("MALE")
-        private String birth;              // 생년월일 ("2026-03-23")
+        private Gender gender;             // 성별 ("MALE")
+        private LocalDate birth;              // 생년월일 ("2026-03-23")
         private String address;            // 주소
         private String detailAddress;      // 상세주소
         private List<String> foodList;     // 선호 음식 리스트 (["NONE"])
@@ -47,4 +35,12 @@ public class MemberRequestDto {
         private boolean location;  // 위치정보 제공 동의
         private boolean marketing; // 마케팅 수신 동의
     }
+
+    public record JoinDTO(
+            String name,
+            String gender,
+            String birth,
+            String address,
+            String email
+    ) {}
 }

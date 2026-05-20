@@ -20,7 +20,7 @@ public class MemberController {
     public ApiResponse<MemberResDTO.JoinResultDTO> join(
             @RequestBody MemberReqDTO.JoinDTO request
     ) {
-
-        return ApiResponse.onSuccess(MemberSuccessCode.JOIN_OK, memberService.joinMember(request));
+        MemberResDTO.JoinResultDTO result = memberService.joinMember(request);
+        return ApiResponse.onSuccess(result);
     }
 }

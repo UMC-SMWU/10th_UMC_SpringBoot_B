@@ -43,4 +43,6 @@ public class Member extends BaseEntity {
 
     @Builder.Default
     private Integer point = 0;
+
+    private String password;
 }
