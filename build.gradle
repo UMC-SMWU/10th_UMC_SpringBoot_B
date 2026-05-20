@@ -34,7 +34,7 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:3.0.1'
 
-    // Security
+    // Security 회원가입 폼 구현 1단계 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
 }

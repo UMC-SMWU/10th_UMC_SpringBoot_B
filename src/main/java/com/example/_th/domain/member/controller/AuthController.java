@@ -1,7 +1,8 @@
 package com.example._th.domain.member.controller;
 
 
-import com.example._th.domain.member.dto.MemberRequestDto;
+import com.example._th.domain.member.dto.MemberReqDTO;
+import com.example._th.domain.member.dto.MemberReqDTO;
 import com.example._th.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ public class AuthController {
 
     // 💡 [4단계] Swagger에 나오던 [POST] /auth/sign-up API의 입구입니다!
     @PostMapping("/sign-up")
-    public String signUp(@RequestBody MemberRequestDto.JoinDto request) {
+    public String signUp(@RequestBody MemberReqDTO.JoinDTO request) {
 
         // 3단계 서비스로 손님이 준 가방을 전달하며 회원가입 로직 실행!
         memberService.joinMember(request);

@@ -13,8 +13,8 @@ public class MemberReqDTO {
     // 💡 [2단계] 회원가입 전체 데이터를 담는 큰 가방
     @Getter
     @Setter
-    public static class JoinDto {
-        private TermsAgreeDto agree;       // 약관 동의 정보 뭉치 (아래 클래스)
+    public static class joinDTO {
+        private TermsAgreeDTO agree;       // 약관 동의 정보 뭉치 (아래 클래스)
         private String name;               // 이름 ("test")
         private Gender gender;             // 성별 ("MALE")
         private LocalDate birth;              // 생년월일 ("2026-03-23")
@@ -28,7 +28,7 @@ public class MemberReqDTO {
     // 💡 [2단계] 약관 동의 항목들만 따로 묶은 작은 가방
     @Getter
     @Setter
-    public static class TermsAgreeDto {
+    public static class TermsAgreeDTO {
         private boolean age;       // 만 14세 이상 동의
         private boolean service;   // 서비스 이용약관 동의
         private boolean privacy;   // 개인정보 처리방침 동의
@@ -41,6 +41,5 @@ public class MemberReqDTO {
             String gender,
             String birth,
             String address,
-            String email
-    ) {}
+            String email )
 }

@@ -1,7 +1,7 @@
 package com.example._th.domain.member.service;
 
 import com.example._th.domain.member.dto.MemberReqDTO;
-import com.example._th.domain.member.dto.MemberRequestDto;
+import com.example._th.domain.member.dto.MemberResDTO;
 import com.example._th.domain.member.entity.Member;
 import com.example._th.domain.member.exception.MemberException;
 import com.example._th.domain.member.exception.code.MemberErrorCode;
@@ -19,7 +19,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;   // 1단계에서 등록한 암호화 기계 자동 주입!
 
     @Transactional
-    public void joinMember(MemberReqDTO.JoinDto request) {
+    public MemberResDTO.JoinResultDTO joinMember(MemberReqDTO.@org.jetbrains.annotations.UnknownNullability JoinDTO request) {
 
         // 1. 가방에서 사용자가 입력한 원래 생글씨 비밀번호(예: "test")를 꺼냅니다.
         String rawPassword = request.getPassword();
@@ -41,6 +41,7 @@ public class MemberService {
 
         // 4. DB 금고에 소중하게 저장 완료!
         memberRepository.save(newMember);
+        return null;
     }
 
     public Member getMyPageInfo(Long memberId) {
