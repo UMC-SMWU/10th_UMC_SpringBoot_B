@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Member", description = "회원 / 마이페이지 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/members")
 public class MemberController {
 
     private final MemberService memberService;
 
     // 회원가입
     @Operation(summary = "회원가입", description = "신규 회원을 등록한다.")
-    @PostMapping("/members/sign-up")
+    @PostMapping("/sign-up")
     public ApiResponse<MemberResDTO.SignUp> signUp(
             @Valid @RequestBody MemberReqDTO.SignUp request
     ) {

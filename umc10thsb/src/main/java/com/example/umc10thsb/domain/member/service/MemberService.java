@@ -12,6 +12,7 @@ import com.example.umc10thsb.domain.member.repository.FoodRepository;
 import com.example.umc10thsb.domain.member.repository.MemberRepository;
 import com.example.umc10thsb.domain.member.repository.TermRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final FoodRepository foodRepository;
     private final TermRepository termRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // 회원가입
     @Transactional
@@ -52,7 +54,9 @@ public class MemberService {
             }
         }
 
-        Member member = MemberConverter.toMember(req, foods, terms, req.agreedTermIds());
+        String encodedPassword = passwordEncoder.encode(req.password());
+
+        Member member = MemberConverter.toMember(req, encodedPassword, foods, terms, req.agreedTermIds());
 
         Member saved = memberRepository.save(member);
         return MemberConverter.toSignUpRes(saved);
