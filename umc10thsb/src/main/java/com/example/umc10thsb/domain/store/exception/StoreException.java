@@ -1,7 +1,7 @@
 package com.example.umc10thsb.domain.store.exception;
 
 import com.example.umc10thsb.global.apiPayload.code.BaseErrorCode;
-import com.example.umc10thsb.global.apiPayload.exception.GeneralException;
+import com.example.umc10thsb.global.security.exception.GeneralException;
 
 public class StoreException extends GeneralException {
     public StoreException(BaseErrorCode errorCode) {
