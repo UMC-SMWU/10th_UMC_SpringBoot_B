@@ -11,6 +11,7 @@ import com.example.umc10thsb.domain.member.exception.code.MemberErrorCode;
 import com.example.umc10thsb.domain.member.repository.FoodRepository;
 import com.example.umc10thsb.domain.member.repository.MemberRepository;
 import com.example.umc10thsb.domain.member.repository.TermRepository;
+import com.example.umc10thsb.global.security.entity.AuthMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -63,15 +64,15 @@ public class MemberService {
     }
 
     // 마이페이지 조회
-    public MemberResDTO.GetInfo getMyPage(Long memberId) {
-        Member member = findMemberById(memberId);
+    public MemberResDTO.GetInfo getInfo(AuthMember authMember) {
+        Member member = findMemberById(authMember.getMember().getId());
         return MemberConverter.toGetInfo(member);
     }
 
     // 마이페이지 수정
     @Transactional
-    public MemberResDTO.GetInfo updateMyPage(Long memberId, MemberReqDTO.UpdateInfo req) {
-        Member member = findMemberById(memberId);
+    public MemberResDTO.GetInfo updateInfo(AuthMember authMember, MemberReqDTO.UpdateInfo req) {
+        Member member = findMemberById(authMember.getMember().getId());
         member.updateProfile(req.name(), req.nickname(), req.profileUrl(), req.phoneNumber());
         return MemberConverter.toGetInfo(member);
     }
