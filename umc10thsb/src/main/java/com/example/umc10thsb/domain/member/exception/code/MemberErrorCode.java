@@ -14,7 +14,8 @@ public enum MemberErrorCode implements BaseErrorCode {
     TERM_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBER_4043", "약관을 찾을 수 없습니다."),
     DUPLICATE_EMAIL(HttpStatus.CONFLICT, "MEMBER_4091", "이미 존재하는 이메일입니다."),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "MEMBER_4001", "비밀번호 형식이 올바르지 않습니다."),
-    INVALID_PHONE_NUMBER(HttpStatus.BAD_REQUEST, "MEMBER_4002", "전화번호 형식이 올바르지 않습니다.");
+    INVALID_PHONE_NUMBER(HttpStatus.BAD_REQUEST, "MEMBER_4002", "전화번호 형식이 올바르지 않습니다."),
+    NOT_SUPPORT_SOCIAL_PROVIDER(HttpStatus.BAD_REQUEST, "MEMBER_4003", "지원하지 않는 소셜 로그인 제공자입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

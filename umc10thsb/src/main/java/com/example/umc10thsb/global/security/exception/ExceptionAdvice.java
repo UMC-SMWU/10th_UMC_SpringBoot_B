@@ -59,17 +59,16 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                 .body(ApiResponse.onFailure(GlobalErrorCode.VALIDATION_ERROR, fieldErrors));
     }
 
-    // 3) Request Body JSON 파싱 실패
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<Object> handleHttpMessageNotReadable(
-            HttpMessageNotReadableException e, HttpServletRequest request) {
-        log.warn("[MalformedRequestBody] {} {} → {}",
-                request.getMethod(), request.getRequestURI(), e.getMostSpecificCause().getMessage());
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex,
+            HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        log.warn("[MalformedRequestBody] {}", ex.getMostSpecificCause().getMessage());
         return ResponseEntity
                 .status(GlobalErrorCode.MALFORMED_REQUEST_BODY.getHttpStatus())
                 .body(ApiResponse.onFailure(
                         GlobalErrorCode.MALFORMED_REQUEST_BODY,
-                        e.getMostSpecificCause().getMessage()));
+                        ex.getMostSpecificCause().getMessage()));
     }
 
     // 4) @Validated 가 붙은 클래스의 @PathVariable / @RequestParam 제약 위반

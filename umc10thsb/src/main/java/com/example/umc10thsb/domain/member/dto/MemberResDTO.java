@@ -22,4 +22,9 @@ public class MemberResDTO {
             String phoneNumber,
             Integer point
     ) {}
+
+    @Builder
+    public record Login(
+            String accessToken
+    ) {}
 }

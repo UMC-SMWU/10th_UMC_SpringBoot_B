@@ -9,6 +9,7 @@ import com.example.umc10thsb.domain.member.entity.mapping.MemberFood;
 import com.example.umc10thsb.domain.member.entity.mapping.MemberTerm;
 import com.example.umc10thsb.domain.member.enums.Gender;
 import com.example.umc10thsb.domain.member.enums.SocialType;
+import com.example.umc10thsb.global.security.dto.OAuthDTO;
 
 import java.util.List;
 
@@ -78,6 +79,21 @@ public class MemberConverter {
                 .email(member.getEmail())
                 .phoneNumber(member.getPhoneNumber())
                 .point(member.getPoint())
+                .build();
+    }
+
+    public static Member toMember(OAuthDTO dto) {
+        return Member.builder()
+                .name(dto.getName())
+                .email(dto.getSocialEmail())
+                .socialType(dto.getSocialType())
+                .socialUid(dto.getSocialUid())
+                .build();
+    }
+
+    public static MemberResDTO.Login toLogin(String accessToken) {
+        return MemberResDTO.Login.builder()
+                .accessToken(accessToken)
                 .build();
     }
 }
