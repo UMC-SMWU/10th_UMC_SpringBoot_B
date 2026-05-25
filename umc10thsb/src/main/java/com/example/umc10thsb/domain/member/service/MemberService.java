@@ -12,6 +12,7 @@ import com.example.umc10thsb.domain.member.repository.FoodRepository;
 import com.example.umc10thsb.domain.member.repository.MemberRepository;
 import com.example.umc10thsb.domain.member.repository.TermRepository;
 import com.example.umc10thsb.global.security.entity.AuthMember;
+import com.example.umc10thsb.global.security.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,13 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class MemberService {
 
+    private static final String TOKEN_TYPE = "Bearer";
+
     private final MemberRepository memberRepository;
     private final FoodRepository foodRepository;
     private final TermRepository termRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     // 회원가입
     @Transactional
@@ -60,7 +64,9 @@ public class MemberService {
         Member member = MemberConverter.toMember(req, encodedPassword, foods, terms, req.agreedTermIds());
 
         Member saved = memberRepository.save(member);
-        return MemberConverter.toSignUpRes(saved);
+
+        String accessToken = jwtUtil.createAccessToken(new AuthMember(saved));
+        return MemberConverter.toSignUpRes(saved, accessToken, TOKEN_TYPE, jwtUtil.getAccessExpirationMillis());
     }
 
     // 마이페이지 조회

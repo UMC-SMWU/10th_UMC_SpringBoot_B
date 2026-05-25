@@ -63,11 +63,17 @@ public class MemberConverter {
         return member;
     }
 
-    public static MemberResDTO.SignUp toSignUpRes(Member member) {
+    public static MemberResDTO.SignUp toSignUpRes(Member member,
+                                                  String accessToken,
+                                                  String tokenType,
+                                                  long expiresIn) {
         return MemberResDTO.SignUp.builder()
                 .memberId(member.getId())
                 .email(member.getEmail())
                 .name(member.getName())
+                .accessToken(accessToken)
+                .tokenType(tokenType)
+                .expiresIn(expiresIn)
                 .build();
     }
 

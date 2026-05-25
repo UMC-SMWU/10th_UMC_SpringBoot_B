@@ -9,7 +9,10 @@ public class MemberResDTO {
     public record SignUp(
             Long memberId,
             String email,
-            String name
+            String name,
+            String accessToken,
+            String tokenType,
+            long expiresIn
     ) {}
 
     // 마이페이지 조회, 수정 응답
