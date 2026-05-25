@@ -1,11 +1,12 @@
 package com.example.chap04.domain.member.dto;
 
 import com.example.chap04.domain.member.entity.Member;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 public class MemberResponseDTO {
 
@@ -36,5 +37,12 @@ public class MemberResponseDTO {
         private String phoneNumber;
         private Boolean isPhoneVerified;
         private Integer point;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class Login {
+        private String accessToken;
     }
 }

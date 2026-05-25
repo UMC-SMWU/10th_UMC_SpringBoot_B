@@ -1,26 +1,26 @@
-package com.example.chap04.global.security;
+package com.example.chap04.global.security.exception;
 
 import com.example.chap04.global.api.ApiResponse;
 import com.example.chap04.global.api.BaseCode;
 import com.example.chap04.global.api.GeneralErrorCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
-public class CustomEntryPoint implements AuthenticationEntryPoint {
+public class CustomAccessDenied implements AccessDeniedHandler {
 
     @Override
-    public void commence(
+    public void handle(
             HttpServletRequest request,
             HttpServletResponse response,
-            AuthenticationException authException
+            AccessDeniedException accessDeniedException
     ) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        BaseCode code = GeneralErrorCode.UNAUTHORIZED;
+        BaseCode code = GeneralErrorCode.FORBIDDEN;
 
         // 응답 Content-Type, HTTP 상태코드 정의
         response.setContentType("application/json;charset=UTF-8");

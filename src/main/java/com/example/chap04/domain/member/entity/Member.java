@@ -28,11 +28,25 @@ public class Member extends TimeBaseEntity {
     @Column(nullable = false, length = 500)
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "login_type", nullable = false, columnDefinition = "varchar(20)")
+    private LoginType loginType;
+
     @Column(nullable = false, length = 100)
     private String nickname;
 
-    @Column(nullable = false, length = 100)
+    // Oauth 때매 잠시 꺼둠
+    @Column(nullable = true, length = 100)
     private String password;
+
+    // 일반 로그인 시 주석처리하기 (Oauth용)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "social_type", nullable = true, columnDefinition = "varchar(20)")
+    private SocialType socialType;
+
+    @Column(name = "social_uid", nullable = true, length = 100)
+    private String socialUid;
+    // Oauth
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(20)")
@@ -69,6 +83,17 @@ public class Member extends TimeBaseEntity {
         SONGPA_GU,
         MAPO_GU,
         YONGSAN_GU
+    }
+
+    public enum LoginType {
+        LOCAL,
+        OAUTH
+    }
+
+    public enum SocialType {
+        KAKAO,
+        GOOGLE,
+        NAVER
     }
 
     //// 관계 ////
