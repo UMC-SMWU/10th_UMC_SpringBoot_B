@@ -25,4 +25,13 @@ public class AuthRequestDTO {
         private String detailAddress;
         private String phoneNumber;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class login {
+        private String email;
+        private String password;
+    }
 }

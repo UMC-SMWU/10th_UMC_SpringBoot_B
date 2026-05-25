@@ -11,6 +11,13 @@ public enum GeneralErrorCode implements BaseCode {
     // Auth
     DUPLICATED_EMAIL(HttpStatus.CONFLICT, "409", "이미 존재하는 이메일입니다."),
 
+    // OAuth
+    NOT_SUPPORT_SOCIAL_PROVIDER(
+            HttpStatus.BAD_REQUEST,
+            "AUTH400",
+            "지원하지 않는 소셜 로그인 제공자입니다."
+    ),
+
     // Member
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "404", "해당 멤버를 찾을 수 없습니다"),
 

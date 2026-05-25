@@ -1,8 +1,8 @@
 package com.example.chap04.domain.member.service;
 
+import com.example.chap04.domain.member.converter.MemberConverter;
 import com.example.chap04.domain.member.dto.MemberResponseDTO;
-import com.example.chap04.domain.member.entity.Member;
-import com.example.chap04.domain.member.repository.MemberRepository;
+import com.example.chap04.global.security.entity.AuthMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,27 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MemberService {
-    private final MemberRepository memberRepository;
 
-    public MemberResponseDTO.MyPageResponseDto getMyPage(Long memberId) {
+    public MemberResponseDTO.MyPageResponseDto getInfo(AuthMember member) {
 
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원을 찾을 수 없습니다. memberId = " + memberId));
-
-        return MemberResponseDTO.MyPageResponseDto.builder()
-                .memberId(member.getId())
-                .nickname(member.getNickname())
-                .email(member.getEmail())
-                .phoneNumber(member.getPhoneNumber())
-                .isPhoneVerified(false)
-                .point(member.getPoint())
-                .build();
+        return MemberConverter.toGetInfo(member.getMember());
     }
-
-    //    public MissionResponseDTO.AchievedCountResponse getAchievedCount(Long memberId) {
-//
-//    }
-
-//    public LocationResponse.MyLocation getLocations(Long memberId) {
-//    }
 }

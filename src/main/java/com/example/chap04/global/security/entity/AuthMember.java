@@ -1,4 +1,4 @@
-package com.example.chap04.global.security;
+package com.example.chap04.global.security.entity;
 
 import com.example.chap04.domain.member.entity.Member;
 import lombok.Getter;

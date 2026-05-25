@@ -1,6 +1,8 @@
 package com.example.chap04.domain.auth.controller;
 
+import com.example.chap04.domain.auth.converter.AuthConverter;
 import com.example.chap04.domain.auth.dto.AuthRequestDTO;
+import com.example.chap04.domain.auth.dto.AuthResponseDTO;
 import com.example.chap04.domain.auth.service.AuthService;
 import com.example.chap04.global.api.ApiResponse;
 import com.example.chap04.global.api.GeneralSuccessCode;
@@ -24,4 +26,13 @@ public class AuthController {
         authService.signin(request);
         return ApiResponse.onSuccessResponse(GeneralSuccessCode.POST_SUCCESS, null);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<AuthResponseDTO.LoginResponse>> login(
+            @RequestBody AuthRequestDTO.login request
+    ) {
+        String accessToken = authService.login(request);
+        return ApiResponse.onSuccessResponse(GeneralSuccessCode.POST_SUCCESS, AuthConverter.toLoginResponse(accessToken));
+    }
 }
+
