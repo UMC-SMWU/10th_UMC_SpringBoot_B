@@ -1,11 +1,19 @@
 package com.example._th.global.config;
 
 
+import com.example._th.global.security.filter.JwtAuthFilter;
+import com.example._th.global.security.service.CustomUserDetailsService;
+import com.example._th.global.security.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -36,6 +44,21 @@ public class SecurityConfig {
                         .anyRequest().authenticated()           // 그 외의 모든 주소는 로그인 필수 (Private)
                 )
 
+                // 폼 로그인
+                .formLogin(AbstractHttpConfigurer::disable)
+
+// 세션
+                .sessionManagement(AbstractHttpConfigurer::disable)
+
+// JWT 필터
+                .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll()
+                )
+
                 // 🌟 [요구사항 2] exceptionHandling 구현으로 에러 응답 양식 통일하기!
                 .exceptionHandling(exception -> exception
                         // 로그인 안 하고 잠긴 주소 찔렀을 때 1단계 장치 가동
@@ -46,6 +69,18 @@ public class SecurityConfig {
 
         return http.build();
 
+        @Bean
+        public JwtAuthFilter jwtAuthFilter() {
+            return new JwtAuthFilter(jwtUtil, customUserDetailsService);
+        }
+        @EnableWebSecurity
+        @Configuration
+        @RequiredArgsConstructor
+        public class SecurityConfig {
 
+            private final JwtUtil jwtUtil;
+            private final CustomUserDetailsService customUserDetailsService;
+
+        }
 
 }

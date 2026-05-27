@@ -6,6 +6,7 @@ import com.example._th.domain.member.entity.Member;
 import com.example._th.domain.member.exception.MemberException;
 import com.example._th.domain.member.exception.code.MemberErrorCode;
 import com.example._th.domain.member.repository.MemberRepository;
+import com.example._th.global.security.entity.AuthMember;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,9 +45,8 @@ public class MemberService {
         return null;
     }
 
-    public Member getMyPageInfo(Long memberId) {
-        // ID로 회원을 찾고, 없으면 에러를 던집니다.
-        return memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
+    public Member getMyPageInfo(AuthMember member) {
+
+        return member.getMember();
     }
 }

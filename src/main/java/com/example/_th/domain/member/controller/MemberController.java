@@ -4,7 +4,9 @@ import com.example._th.domain.member.dto.MemberReqDTO;
 import com.example._th.domain.member.dto.MemberResDTO;
 import com.example._th.domain.member.service.MemberService;
 import com.example._th.global.apiPayload.ApiResponse;
+import com.example._th.global.security.entity.AuthMember;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,11 +18,13 @@ public class MemberController {
 
 
     @PostMapping("/signup")
-    public ApiResponse<MemberResDTO.JoinResultDTO> join(
-            @RequestBody MemberReqDTO.joinDTO request
+    @GetMapping("/me")
+    public ApiResponse<MemberResDTO.GetInfo> getInfo(
+            @AuthenticationPrincipal AuthMember member
     ) {
-        MemberResDTO.JoinResultDTO result = memberService.joinMember(request);
-        return ApiResponse.onSuccess(result);
+        return ApiResponse.onSuccess(
+                memberService.getInfo(member)
+        );
     }
 
 }
